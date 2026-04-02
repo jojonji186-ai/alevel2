@@ -6,38 +6,77 @@
   <body style="font-family: Arial; padding: 20px;">
 
     <h1>📚 Exam Prep App</h1>
-    <p id="streak">🔥 0 day streak</p>
 
     <div id="home">
-      <p>You are just getting started!</p>
       <button onclick="startPractice()" style="padding: 15px; font-size: 18px;">
         Start Practice
       </button>
     </div>
 
     <div id="quiz" style="display:none;">
-      <h2 id="question">Question will appear here</h2>
+      <h2 id="question"></h2>
 
-      <button onclick="checkAnswer('A')">A. 2</button><br><br>
-      <button onclick="checkAnswer('B')">B. 4</button><br><br>
-      <button onclick="checkAnswer('C')">C. 6</button><br><br>
-      <button onclick="checkAnswer('D')">D. 8</button><br><br>
+      <button onclick="checkAnswer('A')" id="optA"></button><br><br>
+      <button onclick="checkAnswer('B')" id="optB"></button><br><br>
+      <button onclick="checkAnswer('C')" id="optC"></button><br><br>
+      <button onclick="checkAnswer('D')" id="optD"></button><br><br>
 
       <p id="result"></p>
+      <button onclick="nextQuestion()">Next</button>
     </div>
 
     <script>
+      const questions = [
+        {
+          q: "What is 2 + 2?",
+          A: "2",
+          B: "4",
+          C: "6",
+          D: "8",
+          correct: "B"
+        },
+        {
+          q: "What is 3 + 5?",
+          A: "5",
+          B: "6",
+          C: "8",
+          D: "10",
+          correct: "C"
+        }
+      ];
+
+      let current = 0;
+
       function startPractice() {
         document.getElementById("home").style.display = "none";
         document.getElementById("quiz").style.display = "block";
-        document.getElementById("question").innerText = "What is 2 + 2?";
+        showQuestion();
       }
 
-      function checkAnswer(answer) {
-        if (answer === "B") {
+      function showQuestion() {
+        let q = questions[current];
+        document.getElementById("question").innerText = q.q;
+        document.getElementById("optA").innerText = "A. " + q.A;
+        document.getElementById("optB").innerText = "B. " + q.B;
+        document.getElementById("optC").innerText = "C. " + q.C;
+        document.getElementById("optD").innerText = "D. " + q.D;
+        document.getElementById("result").innerText = "";
+      }
+
+      function checkAnswer(ans) {
+        if (ans === questions[current].correct) {
           document.getElementById("result").innerText = "✅ Correct!";
         } else {
-          document.getElementById("result").innerText = "❌ Try again!";
+          document.getElementById("result").innerText = "❌ Wrong!";
+        }
+      }
+
+      function nextQuestion() {
+        current++;
+        if (current < questions.length) {
+          showQuestion();
+        } else {
+          document.getElementById("quiz").innerHTML = "<h2>🎉 Quiz Finished!</h2>";
         }
       }
     </script>
