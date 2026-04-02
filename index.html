@@ -4,12 +4,43 @@
     <title>Exam Prep App</title>
   </head>
   <body style="font-family: Arial; padding: 20px;">
-    <h1>📚 Exam Prep App</h1>
-    <p>🔥 0 day streak</p>
-    <p>You are just getting started!</p>
 
-    <button style="padding: 15px; font-size: 18px;">
-      Start Practice
-    </button>
+    <h1>📚 Exam Prep App</h1>
+    <p id="streak">🔥 0 day streak</p>
+
+    <div id="home">
+      <p>You are just getting started!</p>
+      <button onclick="startPractice()" style="padding: 15px; font-size: 18px;">
+        Start Practice
+      </button>
+    </div>
+
+    <div id="quiz" style="display:none;">
+      <h2 id="question">Question will appear here</h2>
+
+      <button onclick="checkAnswer('A')">A. 2</button><br><br>
+      <button onclick="checkAnswer('B')">B. 4</button><br><br>
+      <button onclick="checkAnswer('C')">C. 6</button><br><br>
+      <button onclick="checkAnswer('D')">D. 8</button><br><br>
+
+      <p id="result"></p>
+    </div>
+
+    <script>
+      function startPractice() {
+        document.getElementById("home").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("question").innerText = "What is 2 + 2?";
+      }
+
+      function checkAnswer(answer) {
+        if (answer === "B") {
+          document.getElementById("result").innerText = "✅ Correct!";
+        } else {
+          document.getElementById("result").innerText = "❌ Try again!";
+        }
+      }
+    </script>
+
   </body>
 </html>
